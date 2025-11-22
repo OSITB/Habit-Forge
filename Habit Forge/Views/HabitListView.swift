@@ -8,13 +8,13 @@
 import SwiftUI
 import CoreData
 
-struct ContentView: View {
+struct HabitListView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Habit.timestamp, ascending: true)],
         animation: .default)
-    private var items: FetchedResults<Item>
+    private var items: FetchedResults<Habit>
 
     var body: some View {
         NavigationView {
@@ -44,7 +44,7 @@ struct ContentView: View {
 
     private func addItem() {
         withAnimation {
-            let newItem = Item(context: viewContext)
+            let newItem = Habit(context: viewContext)
             newItem.timestamp = Date()
 
             do {
@@ -82,5 +82,5 @@ private let itemFormatter: DateFormatter = {
 }()
 
 #Preview {
-    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+    HabitListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
 }
