@@ -12,7 +12,7 @@ struct HabitListView: View {
     @Environment(\.managedObjectContext) private var viewContext
 
     @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Habit.timestamp, ascending: true)],
+        sortDescriptors: [NSSortDescriptor(keyPath: \Habit.createdAt, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Habit>
 
@@ -21,9 +21,9 @@ struct HabitListView: View {
             List {
                 ForEach(items) { item in
                     NavigationLink {
-                        Text("Item at \(item.timestamp!, formatter: itemFormatter)")
+                        Text("Item at \(item.createdAt!, formatter: itemFormatter)")
                     } label: {
-                        Text(item.timestamp!, formatter: itemFormatter)
+                        Text(item.createdAt!, formatter: itemFormatter)
                     }
                 }
                 .onDelete(perform: deleteItems)
@@ -45,7 +45,7 @@ struct HabitListView: View {
     private func addItem() {
         withAnimation {
             let newItem = Habit(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.createdAt = Date()
 
             do {
                 try viewContext.save()

@@ -16,7 +16,7 @@ struct PersistenceController {
         let viewContext = result.container.viewContext
         for _ in 0..<10 {
             let newItem = Habit(context: viewContext)
-            newItem.timestamp = Date()
+            newItem.createdAt = Date()
         }
         do {
             try viewContext.save()
