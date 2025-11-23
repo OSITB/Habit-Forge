@@ -81,6 +81,4 @@ private let itemFormatter: DateFormatter = {
     return formatter
 }()
 
-#Preview {
-    HabitListView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-}
+

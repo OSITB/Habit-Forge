@@ -10,12 +10,11 @@ import CoreData
 
 @main
 struct Habit_ForgeApp: App {
-    let persistenceController = PersistenceController.shared
+    
 
     var body: some Scene {
         WindowGroup {
             HabitListView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
         }
     }
 }
