@@ -60,4 +60,19 @@ extension Habit {
         
         return streak
     }
+    
+    var isCompletedToday: Bool {
+        
+        guard let completions = completions as? Set<Completion> else {
+            return false
+        }
+        
+        let calendar = Calendar.current
+        let today = calendar.startOfDay(for: Date())
+        
+        return completions.contains { completion in
+            guard let date = completion.date else { return false}
+            return calendar.startOfDay(for: date) == today
+        }
+    }
 }
