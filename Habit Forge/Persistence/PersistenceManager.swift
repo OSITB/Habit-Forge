@@ -11,7 +11,8 @@ import CoreData
 // Контракт
 protocol PersistenceManagerProtocol {
     func createHabit(name: String, icon: String) -> Habit?
-    func fetchHabits(with id: UUID) -> Habit?
+    func fetchHabits() -> [Habit]
+    func fetchHabit(with id: UUID) -> Habit?
     func updateHabit(_ habit: Habit)
     func deleteHabit(_ habit: Habit)
     
@@ -61,7 +62,12 @@ class PersistenceManager: PersistenceManagerProtocol {
         }
     }
     
-    func fetchHabits(with id: UUID) -> Habit? {
+    func fetchHabits() -> [Habit] {
+        let request = NSFetchRequest<Habit>(entityName: "Habit")
+        return (try? context.fetch(request)) ?? []
+    }
+    
+    func fetchHabit(with id: UUID) -> Habit? {
         let request = NSFetchRequest<Habit>(entityName: "Habit")
         request.predicate = NSPredicate(format: "id == %&", id as CVarArg)
         
